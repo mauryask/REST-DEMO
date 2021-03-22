@@ -1,7 +1,7 @@
 package com.blackhatos.restdemo;
 import java.util.Arrays;
 import java.util.List;
-
+import javax.ws.rs.PathParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -60,12 +60,26 @@ public class EmployeeResource
     * The solution is post man that is basically used to test your API
     * we can supply the post data using the postman
     * */
+  
    
    @POST
-   @Path("/employee")
-   public void createEmployee(Employee e)
+   @Path("employee")
+   public Employee createEmployee(Employee e)
    {
+	   System.out.println(e);
 	   empRepo.create(e);
+	   return e;
    }
+   
+   
+   // getting data of a particular employee
+   @GET
+   @Path("employee/{id}") //supplying parameters
+   @Produces(MediaType.APPLICATION_XML)
+   public Employee getParticularEmployee(@PathParam("id") int id)
+   {
+	   return empRepo.getEmployee(id);
+   }
+   
    
 }
