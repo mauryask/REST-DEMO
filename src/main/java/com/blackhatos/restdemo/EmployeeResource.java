@@ -93,7 +93,7 @@ public class EmployeeResource
    }
    
    /*
-    * This method demonstrates how to 
+    * These method demonstrates how to 
     * make data available on the Internet from the database
     * */
    
@@ -107,13 +107,32 @@ public class EmployeeResource
    }
    
    
+   // in order to work following 2 method don't specify
+   // produces tag for them
    @POST
-   @Path("dbupdate/{id}/{name}")
-   @Produces(MediaType.TEXT_PLAIN)
-   public String update(@PathParam("id") int id,
-		   @PathParam("name") String name)
+   @Path("dbupdate")
+   public String update(com.db.Employee emp)
    {
 	  UpdateQuery uq = new UpdateQuery();
-	  return  uq.isUpdated(id, name)? "Updated successfully" : "Failed to update";
+	  return  uq.isUpdated(emp.getId(), emp.getName())? "Updated successfully" : "Failed to update";
    }
+   
+   
+   @POST
+   @Path("dbinsert")
+   public String insert(com.db.Employee emp)
+   {
+	   InsertQuery iq = new InsertQuery();
+	   return iq.isInserted(emp) ? "Inserted Successfully" : "Failed to insert";
+   }
+   
+   
+   @POST
+   @Path("dbdelete")
+   public String delete(com.db.Employee emp)
+   {
+	   DeleteQuery dq = new DeleteQuery();
+	   return dq.isDeleted(emp) ? "Deleted Successfully" : "Failed to delete";
+   }
+   
 }
