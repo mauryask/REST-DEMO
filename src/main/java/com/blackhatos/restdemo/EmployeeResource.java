@@ -18,7 +18,8 @@ public class EmployeeResource
    @Produces(MediaType.APPLICATION_XML) 
    public List<Employee> getEmloyeeData()
    {
-	   Employee e1 = new Employee();
+	   // (1)
+	   /*Employee e1 = new Employee();
 	   e1.setName("Alex");
 	   e1.setId(12036);
        e1.setAge(35);
@@ -28,13 +29,20 @@ public class EmployeeResource
 	   e2.setName("Bob");
 	   e2.setId(14523);
        e2.setAge(24);
-       e2.setSalary(321458.75f);
+       e2.setSalary(321458.75f);*/
        
+	   // (2)
        //returning single object at a time
        //return e1
        
+	   // (3)
        // returning multiple objects at a time
-       List<Employee> employee = Arrays.asList(e1, e2);
-       return employee;
+       //List<Employee> employee = Arrays.asList(e1, e2);
+       //return employee;
+       
+       // (4)
+       // returning data of particular employee
+	   EmployeeRepo empRepo = new EmployeeRepo();
+	   return empRepo.getEmployees();
    }
 }
