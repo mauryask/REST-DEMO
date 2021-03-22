@@ -8,11 +8,11 @@ import java.util.List;
 
 public class EmployeeRepo 
 {
-  List<Employee> employee = null;
+  List<Employee> employees = null;
   
   public EmployeeRepo() 
   {
-	    employee = new ArrayList<Employee>();
+	    employees = new ArrayList<Employee>();
     
 	    Employee e1 = new Employee();
 	    e1.setName("Alex");
@@ -26,19 +26,19 @@ public class EmployeeRepo
 	    e2.setAge(24);
 	    e2.setSalary(321458.75f);
 	    
-	    employee.add(e1);
-	    employee.add(e2);
+	    employees.add(e1);
+	    employees.add(e2);
   }
   
   
   public List<Employee> getEmployees()
   {
-	  return employee;
+	  return employees;
   }
   
   public Employee getEmployee(int id)
   {
-	  for(Employee e : employee)
+	  for(Employee e : employees)
 	  {
 		  if(e.getId() == id)
 			  return e;
@@ -46,5 +46,12 @@ public class EmployeeRepo
 	  
 	  return null;
   }
+
+// creating an employee
+// here you can insert data into the database
+  
+public void create(Employee e) {
+	employees.add(e);
+}
   
 }
