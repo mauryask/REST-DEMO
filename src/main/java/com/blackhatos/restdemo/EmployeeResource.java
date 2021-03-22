@@ -1,5 +1,4 @@
 package com.blackhatos.restdemo;
-import java.util.Arrays;
 import java.util.List;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.GET;
@@ -17,7 +16,7 @@ public class EmployeeResource
   //this tag specifies that respond to get request	
    @GET
   //this tag specifies which format of data we want to return
-   @Produces(MediaType.APPLICATION_XML) 
+   @Produces(MediaType.APPLICATION_JSON) 
    public List<Employee> getEmloyeeData()
    {
 	   // (1)
@@ -75,7 +74,9 @@ public class EmployeeResource
    // getting data of a particular employee
    @GET
    @Path("employee/{id}") //supplying parameters
-   @Produces(MediaType.APPLICATION_XML)
+   @Produces(MediaType.APPLICATION_JSON)
+   // in case you want to work with XML data format
+   //@Produces(MediaType.APPLICATION_XML) 
    public Employee getParticularEmployee(@PathParam("id") int id)
    {
 	   return empRepo.getEmployee(id);
