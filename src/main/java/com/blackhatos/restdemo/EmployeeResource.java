@@ -6,6 +6,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import com.db.*;
+import java.sql.*;
 
 // this tag defines the URI path
 @Path("/employees")
@@ -16,7 +18,8 @@ public class EmployeeResource
   //this tag specifies that respond to get request	
    @GET
   //this tag specifies which format of data we want to return
-   @Produces(MediaType.APPLICATION_JSON) 
+   //@Produces(MediaType.APPLICATION_JSON) 
+   @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}) 
    public List<Employee> getEmloyeeData()
    {
 	   // (1)
@@ -74,13 +77,43 @@ public class EmployeeResource
    // getting data of a particular employee
    @GET
    @Path("employee/{id}") //supplying parameters
-   @Produces(MediaType.APPLICATION_JSON)
+  // @Produces(MediaType.APPLICATION_JSON)
    // in case you want to work with XML data format
    //@Produces(MediaType.APPLICATION_XML) 
+   
+   
+   /*
+    * this is called "Content Negotiation" that means
+    * you can return data in what ever format the user wants 
+    * */
+   @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}) 
    public Employee getParticularEmployee(@PathParam("id") int id)
    {
 	   return empRepo.getEmployee(id);
    }
    
+   /*
+    * This method demonstrates how to 
+    * make data available on the Internet from the database
+    * */
    
+   @GET
+   @Path("dbconnect")
+   @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+   public List<com.db.Employee> getEmployeeDatafromDb()
+   {
+	   SelectQuery sq = new SelectQuery();
+	   return sq.selectStatement();
+   }
+   
+   
+   @POST
+   @Path("dbupdate/{id}/{name}")
+   @Produces(MediaType.TEXT_PLAIN)
+   public String update(@PathParam("id") int id,
+		   @PathParam("name") String name)
+   {
+	  UpdateQuery uq = new UpdateQuery();
+	  return  uq.isUpdated(id, name)? "Updated successfully" : "Failed to update";
+   }
 }
